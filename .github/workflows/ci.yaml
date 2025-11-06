@@ -47,6 +47,40 @@ jobs:
     - name: Run TFLint
       run: tflint -f compact
 
+  snyk-checks:
+    name: Snyk Security Scans
+    runs-on: ubuntu-latest
+    outputs:
+      status: ${{ job.status }}
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js (for Snyk CLI)
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+    - name: Install Snyk CLI
+      run: npm install -g snyk
+
+    - name: Authenticate with Snyk
+      env:
+       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      run: snyk auth $SNYK_TOKEN
+
+    - name: Snyk Code Test
+      run: snyk code test || true
+
+    - name: Snyk Open Source Dependency Test
+      run: snyk test || true
+
+    - name: Snyk IaC Test (Terraform / CloudFormation / Kubernetes)
+      run: snyk iac test || true
+
+    - name: Snyk Container Test
+      run: snyk container test <image-name> || true
+  
   ########################################
   # Add a job for snyk scan of your code #
   ########################################
