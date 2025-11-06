@@ -14,7 +14,7 @@ module "vpc" {
     Terraform = "true"
     Environment = "dev"
     Created_by = var.created_by
-    Cohort = "CE9"
+    Cohort = "CE11"
   }
 }
 
