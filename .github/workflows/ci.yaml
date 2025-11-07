@@ -122,12 +122,12 @@ jobs:
 
           echo '## Job ran by: ${{ github.actor }}' >> $GITHUB_STEP_SUMMARY
 
-summary: 
-  needs: [snyk-checks] # add snyk-checks 
-  runs-on: ubuntu-latest
-  name: Snyk Summary Report
-  needs: [terraform-validate, checkov, tflint, snyk-checks]
-  steps:
+  summary: 
+    needs: [snyk-checks] # add snyk-checks 
+    runs-on: ubuntu-latest
+    name: Snyk Summary Report
+    needs: [terraform-validate, checkov, tflint, snyk-checks]
+    steps:
       - name: Print Job Results
         run: |
           echo "Terraform Validation: ${{ needs.terraform-validate.result }}"
