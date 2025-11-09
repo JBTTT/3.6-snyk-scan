@@ -111,7 +111,8 @@ jobs:
         run: terraform fmt
 
       - name: Terraform plan
-        run: terraform plan 
+        run: terraform plan -var="aws_account_id=${{ secrets.AWS_ACCOUNT_ID }}"
+
 
       - name: Terraform apply
         run: terraform apply -auto-approve
