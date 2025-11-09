@@ -6,6 +6,10 @@ on:
    branches:
      - main
 
+ push_request:
+   branches:
+     - main
+
 jobs:
   Initial-Checks:
     runs-on: ubuntu-latest
