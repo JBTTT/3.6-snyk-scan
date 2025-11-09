@@ -134,3 +134,5 @@ jobs:
           echo "Checkov Scan: ${{ needs.checkov.result }}"
           echo "tflint Scan: ${{ needs.tflint.result }}"
           echo "Snyk Scan: ${{ needs.snyk-checks.result }}"
+
+          
