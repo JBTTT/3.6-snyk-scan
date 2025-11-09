@@ -142,7 +142,7 @@ jobs:
         fi
       continue-on-error: true
 
-  ############ End Test
+  ############ End Test ##
 
   summary:
     needs: [terraform-checks, snyk-checks] # add snyk-checks 
