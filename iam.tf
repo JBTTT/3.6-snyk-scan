@@ -1,16 +1,15 @@
 data "aws_iam_policy_document" "inline_policy_cloudwatch" {
   statement {
-    actions   = [
-        "logs:CreateLogGroup",
-        "logs:CreateLogStream",
-        "logs:PutLogEvents",
-        ]
+    actions = [
+      "logs:CreateLogGroup",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents",
+    ]
 
     # Allow Lambda to write logs to CloudWatch
     resources = [
       "arn:aws:logs:us-east-1:${var.aws_account_id}:log-group:/aws/lambda/${var.lambda_function_name}:*"
     ]
-    #resources = ["arn:aws:logs:us-east-1:255945442255:log-group:/aws/lambda/${var.lambda_function_name}:*"]
   }
 }
 
@@ -30,5 +29,4 @@ data "aws_iam_policy_document" "assume_role" {
 resource "aws_iam_role" "iam_for_lambda" {
   name               = var.iam_name
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
-
-}
+  }
