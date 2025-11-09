@@ -1,5 +1,6 @@
 module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "6.5.0"
 
   name = var.vpc_name
   cidr = "10.0.0.0/16"
@@ -16,12 +17,4 @@ module "vpc" {
     Created_by  = var.created_by
     Cohort      = "CE11"
   }
-}
-
-output "vpc_id" {
-  value = module.vpc.vpc_id
-}
-
-output "vpc_arn" {
-  value = module.vpc.vpc_arn
 }
