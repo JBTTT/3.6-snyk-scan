@@ -1,4 +1,4 @@
-module "vpc" {
+mmodule "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
   name = var.vpc_name
@@ -11,10 +11,10 @@ module "vpc" {
   enable_vpn_gateway = true
 
   tags = {
-    Terraform = "true"
+    Terraform   = "true"
     Environment = "dev"
-    Created_by = var.created_by
-    Cohort = "CE11"
+    Created_by  = var.created_by
+    Cohort      = "CE11"
   }
 }
 
