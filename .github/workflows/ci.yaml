@@ -5,8 +5,7 @@ on:
  pull_request:
    branches:
      - main
-
- push_request:
+ push:
    branches:
      - main
 
