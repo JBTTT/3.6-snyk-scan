@@ -2,13 +2,16 @@ name: CI Checks
 run-name: Running Terraform Checks by ${{ github.actor }}
 
 on:
- pull_request:
-   branches:
-     - main
- push:
-   branches:
-     - main
-    ##- feature/**"
+  push:
+    branches:
+      - "feature/**"      # CI runs whenever code is pushed to feature branches
+  pull_request:
+    branches:
+      - main              # CI runs when PR targets main
+    types:
+      - opened
+      - synchronize
+      - reopened
 
 jobs:
   Initial-Checks:
