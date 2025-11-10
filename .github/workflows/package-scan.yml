@@ -133,7 +133,6 @@ jobs:
 
   terraform-create:
     needs: [package-scan-npm-audit, package-osc-scan-snyk-scan, package-app-scan-snyk-scan, package-iac-scan-snyk-scan]
-    ##if: ${{ github.ref == 'refs/heads/main' }}
     if: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/main') }}
 
     runs-on: ubuntu-latest
