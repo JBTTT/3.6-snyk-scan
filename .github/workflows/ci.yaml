@@ -136,7 +136,9 @@ jobs:
     - name: Snyk Container test (if Dockerfile exists)
       run: |
         if [ -f "Dockerfile" ]; then
-          snyk container test . --severity-threshold=high
+          echo "Dockerfile found. Building image..."
+          docker build -t lambda-image:latest .
+          snyk container test lambda-image:latest --severity-threshold=high
         else
           echo "No Dockerfile found, skipping container scan"
         fi
