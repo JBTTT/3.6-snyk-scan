@@ -11,6 +11,39 @@ jobs:
     steps:
       - run: echo "This job is automatically triggered by a ${{ github.event_name }} event."
 
+  terraform-checks:
+    runs-on: ubuntu-latest
+    needs: [pre-deploy]
+    outputs:
+      status: ${{ job.status }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+
+    - name: Terraform fmt
+      id: fmt
+      run: terraform fmt -check
+
+    - name: Terraform Validate
+      id: validate
+      run: terraform validate -no-color
+
+    - uses: terraform-linters/setup-tflint@v3
+      with:
+        tflint_version: latest
+    
+    - name: Show version
+      run: tflint --version
+
+    - name: Init TFLint
+      run: tflint --init
+
+    - name: Run TFLint
+      run: tflint -f compact
+
   install-dependencies:
     runs-on: ubuntu-latest
     needs: [pre-deploy]
@@ -89,6 +122,7 @@ jobs:
 
   terraform-create:
     needs: [package-scan-npm-audit, package-osc-scan-snyk-scan, package-app-scan-snyk-scan, package-iac-scan-snyk-scan]
+    if: ${{ github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -112,11 +146,9 @@ jobs:
 
       - name: Terraform plan
         run: terraform plan 
-      #-var="aws_account_id=${{ secrets.AWS_ACCOUNT_ID }}" -no-color
 
       - name: Terraform apply
-        run: terraform apply -auto-approve 
-      #-var="aws_account_id=${{ secrets.AWS_ACCOUNT_ID }}"
+        run: terraform apply -auto-approve
 
   terraform-wait:
     needs: terraform-create
@@ -147,5 +179,4 @@ jobs:
         run: terraform init
 
       - name: Terraform destroy
-        run: terraform destroy -auto-approve 
-        #-var="aws_account_id=${{ secrets.AWS_ACCOUNT_ID }}"
+        run: terraform destroy -auto-approve
