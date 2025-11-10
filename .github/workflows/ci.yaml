@@ -5,9 +5,11 @@ on:
  pull_request:
    branches:
      - main
+     - feature
  push:
    branches:
      - main
+     - feature
 
 jobs:
   Initial-Checks:
@@ -146,7 +148,7 @@ jobs:
 
   ############ End Test ##
 
-  
+
   summary:
     needs: [terraform-checks, snyk-checks] # add snyk-checks 
     runs-on: ubuntu-latest
