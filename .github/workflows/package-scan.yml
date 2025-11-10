@@ -156,10 +156,10 @@ jobs:
         run: terraform fmt
 
       - name: Terraform plan
-        run: terraform plan 
+        run: terraform plan -var="aws_account_id=${{ secrets.AWS_ACCOUNT_ID }}" -no-color
 
       - name: Terraform apply
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve -var="aws_account_id=${{ secrets.AWS_ACCOUNT_ID }}"
 
   terraform-wait:
     needs: terraform-create
