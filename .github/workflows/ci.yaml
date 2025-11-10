@@ -146,6 +146,7 @@ jobs:
 
   ############ End Test ##
 
+  
   summary:
     needs: [terraform-checks, snyk-checks] # add snyk-checks 
     runs-on: ubuntu-latest
@@ -165,4 +166,3 @@ jobs:
           echo '' >> $GITHUB_STEP_SUMMARY
 
           echo '## Job ran by: ${{ github.actor }}' >> $GITHUB_STEP_SUMMARY
-          
