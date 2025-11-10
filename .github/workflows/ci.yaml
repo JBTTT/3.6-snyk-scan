@@ -2,12 +2,16 @@ name: CI Checks
 run-name: Running Terraform Checks by ${{ github.actor }}
 
 on:
- pull_request:
-   branches:
-     - main
- push:
-   branches:
-     - main
+  push:
+    branches:
+      - "feature/**"      # CI runs whenever code is pushed to feature branches
+  pull_request:
+    branches:
+      - main              # CI runs when PR targets main
+    types:
+      - opened
+      - synchronize
+      - reopened
 
 jobs:
   Initial-Checks:
@@ -146,6 +150,7 @@ jobs:
 
   ############ End Test ##
 
+
   summary:
     needs: [terraform-checks, snyk-checks] # add snyk-checks 
     runs-on: ubuntu-latest
@@ -165,4 +170,3 @@ jobs:
           echo '' >> $GITHUB_STEP_SUMMARY
 
           echo '## Job ran by: ${{ github.actor }}' >> $GITHUB_STEP_SUMMARY
-          
