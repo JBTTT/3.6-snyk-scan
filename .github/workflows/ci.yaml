@@ -7,7 +7,8 @@ on:
      - main
  push:
    branches:
-     - feature/**"
+     - main
+    ##- feature/**"
 
 jobs:
   Initial-Checks:
