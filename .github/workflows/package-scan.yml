@@ -111,10 +111,12 @@ jobs:
         run: terraform fmt
 
       - name: Terraform plan
-        run: terraform plan -var="aws_account_id=${{ secrets.AWS_ACCOUNT_ID }}" -no-color
+        run: terraform plan 
+      #-var="aws_account_id=${{ secrets.AWS_ACCOUNT_ID }}" -no-color
 
       - name: Terraform apply
-        run: terraform apply -auto-approve -var="aws_account_id=${{ secrets.AWS_ACCOUNT_ID }}"
+        run: terraform apply -auto-approve 
+      #-var="aws_account_id=${{ secrets.AWS_ACCOUNT_ID }}"
 
   terraform-wait:
     needs: terraform-create
@@ -145,4 +147,5 @@ jobs:
         run: terraform init
 
       - name: Terraform destroy
-        run: terraform destroy -auto-approve -var="aws_account_id=${{ secrets.AWS_ACCOUNT_ID }}"
+        run: terraform destroy -auto-approve 
+        #-var="aws_account_id=${{ secrets.AWS_ACCOUNT_ID }}"
